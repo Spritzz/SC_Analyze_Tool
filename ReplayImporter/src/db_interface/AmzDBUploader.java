@@ -4,11 +4,13 @@ import java.sql.*;
 
 public class AmzDBUploader {
 	public static void main(String args[]){
+		DBManager.INSTANCE.importReplyData();
+		/**
 		// Read RDS Connection Information from the Environment
 		  String dbName = "ReplayData";
-		  String userName = "sysadmin";
-		  String password = "admin0227";
-		  String hostname = "replay-data.cjmv5ohfzexx.us-west-2.rds.amazonaws.com";
+		  String userName = "";
+		  String password = "";
+		  String hostname = "";
 		  String port = "3306";
 		  String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
 		    port + "/" + dbName + "?user=" + userName + "&password=" + password;
@@ -79,6 +81,6 @@ public class AmzDBUploader {
 		  } finally {
 		       System.out.println("Closing the connection.");
 		      if (conn != null) try { conn.close(); } catch (SQLException ignore) {}
-		  }
+		  }**/
 	}
 }
