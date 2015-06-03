@@ -1,10 +1,20 @@
 package db_interface;
 
 import java.sql.*;
+import java.util.Properties;
+
+import utils.PropertyLoader;
 
 public class AmzDBUploader {
 	public static void main(String args[]){
-		DBManager.INSTANCE.importReplyData();
+		//DBManager.INSTANCE.importReplyData();
+		PropertyLoader config = new PropertyLoader("resources/config.properties");
+		System.out.println(config.getProperty("dbName"));
+		System.out.println(config.getProperty("userName"));
+		System.out.println(config.getProperty("password"));
+		System.out.println(config.getProperty("hostname"));
+		System.out.println(config.getProperty("port"));
+
 		/**
 		// Read RDS Connection Information from the Environment
 		  String dbName = "ReplayData";
