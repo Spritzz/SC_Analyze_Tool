@@ -1,22 +1,14 @@
 package db_interface;
 
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Properties;
 
 import utils.PropertyLoader;
 
 public class DBManager {
 	  public static final DBManager INSTANCE = new DBManager();
-	  private static String dbName = "ReplayData";
-	  private static String userName = "";
-	  private static String password = "";
-	  private static String hostname = "";
-	  private static String port = "3306";
-	  private static String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
-	    port + "/" + dbName + "?user=" + userName + "&password=" + password;
+	  private static String jdbcUrl;
 	  
 	  private DBManager(){
 		  try {
@@ -26,19 +18,22 @@ public class DBManager {
 		  }
 	  }
 	  
-	  public static void loadDBProperties() {
+	  public void loadDBProperties() {
 		  PropertyLoader config = new PropertyLoader("resources/config.properties");
-		  dbName = config.getProperty("dbName");
-		  userName = config.getProperty("userName");
-		  password = config.getProperty("password");
-		  hostname = config.getProperty("hostname");
-		  port = config.getProperty("port");
+		  String dbName = config.getProperty("dbName");
+		  String userName = config.getProperty("userName");
+		  String password = config.getProperty("password");
+		  String hostname = config.getProperty("hostname");
+		  String port = config.getProperty("port");		  
+		  jdbcUrl = "jdbc:mysql://" + hostname + ":" +
+				    port + "/" + dbName + "?user=" + userName + "&password=" + password;
 	  }
 	  
 	  private Connection getConnection() {
 		  Connection conn = null;
 		  try{
 			  loadDBProperties();
+			  System.out.println("Making connection to " + jdbcUrl);
 			  conn = DriverManager.getConnection(jdbcUrl);
 		  } catch(SQLException ex) {
 			    System.out.println("SQLException: " + ex.getMessage());
@@ -54,8 +49,7 @@ public class DBManager {
 	  
 	  public void importReplyData() {
 		  Connection conn = getConnection();
-		  try{
-			  
+		  try{			  
 			  conn.close(); 
 		  } catch(SQLException ex) {
 			    System.out.println("SQLException: " + ex.getMessage());
