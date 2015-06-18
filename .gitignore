@@ -45,3 +45,6 @@ Temporary Items
 
 # Sensitive Information
 ReplayImporter/resources/config.properties
+
+# Runtime files
+*.class
