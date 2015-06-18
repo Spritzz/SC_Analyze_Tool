@@ -6,14 +6,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import utils.PropertyLoader;
+
 public class DBManager {
 	  public static final DBManager INSTANCE = new DBManager();
-	  private static final String dbName = "ReplayData";
+	  private static String dbName = "ReplayData";
 	  private static String userName = "";
 	  private static String password = "";
 	  private static String hostname = "";
-	  private static final String port = "3306";
-	  private static final String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
+	  private static String port = "3306";
+	  private static String jdbcUrl = "jdbc:mysql://" + hostname + ":" +
 	    port + "/" + dbName + "?user=" + userName + "&password=" + password;
 	  
 	  private DBManager(){
@@ -24,22 +26,19 @@ public class DBManager {
 		  }
 	  }
 	  
-	  private Properties getDBProperties() {
-		  Properties props = new Properties();
-		  try{
-			  FileInputStream in = new FileInputStream("/db.properties");
-			  props.load(in);
-			  in.close();
-		  } catch(Exception e) {
-			  
-		  }
-		   return props;
+	  public static void loadDBProperties() {
+		  PropertyLoader config = new PropertyLoader("resources/config.properties");
+		  dbName = config.getProperty("dbName");
+		  userName = config.getProperty("userName");
+		  password = config.getProperty("password");
+		  hostname = config.getProperty("hostname");
+		  port = config.getProperty("port");
 	  }
+	  
 	  private Connection getConnection() {
 		  Connection conn = null;
 		  try{
-			  Properties props = getDBProperties();
-			  System.out.println( props);
+			  loadDBProperties();
 			  conn = DriverManager.getConnection(jdbcUrl);
 		  } catch(SQLException ex) {
 			    System.out.println("SQLException: " + ex.getMessage());
@@ -56,6 +55,7 @@ public class DBManager {
 	  public void importReplyData() {
 		  Connection conn = getConnection();
 		  try{
+			  
 			  conn.close(); 
 		  } catch(SQLException ex) {
 			    System.out.println("SQLException: " + ex.getMessage());
