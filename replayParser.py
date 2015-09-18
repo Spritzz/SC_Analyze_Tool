@@ -4,7 +4,7 @@ import json
 import sys
 import os
 import string
-
+import argparse
 import spawningtool.parser
 
 def create_expected_results(filename):
@@ -23,5 +23,19 @@ def pp(arg, dirname, names):
             create_expected_results(replay)
 
 
-d = os.path.dirname(str(sys.argv[1]))
-os.path.walk(d, pp, 1)
+def main():
+    """
+    Execute Replay Parser
+    """
+    parser = argparse.ArgumentParser()
+    parser.add_argument('directory', help='parent directory containing replay files')
+
+    args = parser.parse_args()
+
+    if args.directory:
+        d = os.path.dirname(args.directory)
+        os.path.walk(d, pp, 1)
+
+
+if __name__ == '__main__':
+    main()

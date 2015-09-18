@@ -275,14 +275,14 @@
 ## ZERG_ARMY_COMPOSITION_FIRST_ORDER_DATA TABLE
 * replay_id (foreign key)
 * composition_id (primary key)
-* zerling_count_at_5
-* zerling_count_at_7
-* zerling_count_at_9
-* zerling_count_at_11
-* zerling_count_at_13
-* zerling_count_at_15
-* zerling_count_at_17
-* zerling_count_at_19
+* zergling_count_at_5
+* zergling_count_at_7
+* zergling_count_at_9
+* zergling_count_at_11
+* zergling_count_at_13
+* zergling_count_at_15
+* zergling_count_at_17
+* zergling_count_at_19
 * roach_count_at_5
 * roach_count_at_7
 * roach_count_at_9
